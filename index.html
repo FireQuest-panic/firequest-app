@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0F0F10">
+<title>Get FireQuest</title>
+<meta name="description" content="Download the FireQuest emergency panic app for Android.">
+<meta property="og:title" content="Get the FireQuest app">
+<meta property="og:description" content="Emergency panic app by FireQuest Search &amp; Rescue. Tap to download for Android.">
+<meta property="og:image" content="https://firequest-panic.github.io/firequest-app/icon-192.png">
+<meta property="og:type" content="website">
+<link rel="icon" href="favicon.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<style>
+  :root {
+    --bg: #0F0F10; --surface: #1A1A1C; --border: #2E2C28; --text: #F4F1EA;
+    --muted: #A8A39A; --gold: #B99B52; --gold-text: #D9BE7E; --gold-deep: #262014;
+    --red: #D42F35; --red-press: #B5242A; --red-deep: #2E1214; --red-text: #FF8A8E;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--text); }
+  body {
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    font-size: 17px; line-height: 1.5; -webkit-text-size-adjust: 100%;
+  }
+  main { max-width: 460px; margin: 0 auto; padding: 28px 16px 40px; }
+  header { text-align: center; }
+  header img { width: 120px; height: auto; }
+  h1 { font-size: 28px; line-height: 1.2; margin: 12px 0 4px; letter-spacing: -0.01em; }
+  .tagline { color: var(--muted); margin: 0; font-size: 15px; }
+  .nw { white-space: nowrap; }
+
+  .code {
+    margin: 22px 0 0; padding: 14px; text-align: center; border-radius: 14px;
+    background: var(--gold-deep); border: 1px solid var(--gold);
+  }
+  .code span { display: block; color: var(--muted); font-size: 13px; }
+  .code strong {
+    display: block; color: var(--gold-text); font-size: 32px; letter-spacing: 0.22em;
+    font-variant-numeric: tabular-nums; padding-left: 0.22em;
+  }
+
+  .download {
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    margin: 22px 0 0; min-height: 60px; padding: 0 20px; border-radius: 16px;
+    background: var(--red); color: #fff; font-size: 20px; font-weight: 700;
+    text-decoration: none; -webkit-tap-highlight-color: transparent;
+  }
+  .download:active { background: var(--red-press); }
+  .download svg { width: 24px; height: 24px; flex: none; }
+  .size { text-align: center; color: var(--muted); font-size: 13px; margin: 8px 0 0; }
+
+  .note {
+    margin: 18px 0 0; padding: 12px 14px; border-radius: 12px; font-size: 15px;
+    background: var(--red-deep); border: 1px solid #5A2226; color: var(--text);
+  }
+
+  h2 { font-size: 17px; color: var(--gold-text); margin: 30px 0 10px; }
+  ol { margin: 0; padding: 0; list-style: none; counter-reset: step; }
+  ol li {
+    counter-increment: step; position: relative; padding: 12px 12px 12px 52px; margin: 0 0 8px;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 14px;
+  }
+  ol li::before {
+    content: counter(step); position: absolute; left: 12px; top: 11px; width: 28px; height: 28px;
+    border-radius: 50%; background: var(--gold-deep); border: 1px solid var(--gold);
+    color: var(--gold-text); font-weight: 700; font-size: 15px; text-align: center; line-height: 26px;
+  }
+  ol li small { display: block; color: var(--muted); font-size: 14px; margin-top: 2px; }
+
+  .help { margin: 26px 0 0; color: var(--muted); font-size: 15px; }
+  .help a, .help button {
+    color: var(--gold-text); font: inherit; background: none; border: 0; padding: 0;
+    text-decoration: underline; text-underline-offset: 3px; cursor: pointer;
+  }
+  .help p { margin: 0 0 10px; }
+  footer { margin-top: 30px; text-align: center; color: #6F6A62; font-size: 12px; }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <img src="logo.png" alt="FireQuest Search &amp; Rescue badge" width="120" height="114">
+    <h1>Get FireQuest</h1>
+    <p class="tagline">Emergency panic app · <span class="nw">FireQuest Search &amp; Rescue</span></p>
+  </header>
+
+  <div class="code" id="code-box" hidden>
+    <span>Your family code</span>
+    <strong id="code"></strong>
+  </div>
+
+  <a class="download" id="download" href="https://github.com/FireQuest-panic/firequest-app/releases/download/build-8/FireQuest-build-8.apk">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"/><path d="m7 11 5 5 5-5"/><path d="M5 20h14"/></svg>
+    Download FireQuest
+  </a>
+  <p class="size">Android · about 38 MB</p>
+
+  <p class="note" id="not-android" hidden>
+    FireQuest is only available for <strong>Android</strong> phones at the moment. Open this page on an Android phone.
+  </p>
+
+  <h2>How to install</h2>
+  <ol>
+    <li>Tap <strong>Download FireQuest</strong>.
+      <small id="samsung-hint">On Samsung phones the download opens in Samsung Internet.</small></li>
+    <li>When the download is finished, tap <strong>Open</strong>, then <strong>Install</strong>.
+      <small>If your phone asks, tap <strong>Settings</strong>, switch on <strong>Allow from this source</strong>, and go back.</small></li>
+    <li>Open <strong>FireQuest</strong> and create your own account.
+      <small id="phone-hint" hidden>Use your own cellphone number: the one this invite was sent to.</small></li>
+    <li id="join-step" hidden>Go to <strong>Account → Family plan → I have an invite code</strong> and enter the code above.</li>
+  </ol>
+
+  <div class="help">
+    <p>Download stuck at 100%? Open this page in <strong>Samsung Internet</strong>, or <a id="direct" href="https://github.com/FireQuest-panic/firequest-app/releases/download/build-8/FireQuest-build-8.apk">try the direct download</a>.</p>
+    <p><button type="button" id="copy">Copy the link to this page</button> <span id="copied" role="status"></span></p>
+  </div>
+
+  <footer>FireQuest Search &amp; Rescue · Test version <span id="build">build 8</span></footer>
+</main>
+<script>
+(function () {
+  var APK = 'https://github.com/FireQuest-panic/firequest-app/releases/download/build-8/FireQuest-build-8.apk';
+  var SAMSUNG_INTERNET = 'com.sec.android.app.sbrowser';
+  var ua = navigator.userAgent || '';
+  var isAndroid = /Android/i.test(ua);
+  var inSamsungInternet = /SamsungBrowser/i.test(ua);
+
+  // Family code from the invite link (?code=K7M4PX). Only letters and digits are shown.
+  var params = new URLSearchParams(location.search);
+  var code = (params.get('code') || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
+  if (code.length >= 6 && code.length <= 8) {
+    document.getElementById('code').textContent = code;
+    document.getElementById('code-box').hidden = false;
+    document.getElementById('join-step').hidden = false;
+    document.getElementById('phone-hint').hidden = false;
+  }
+
+  // Chrome on Android can get stuck at 100% on app files, so on Android we hand the
+  // download to Samsung Internet. Phones without it fall back to the normal download.
+  var btn = document.getElementById('download');
+  if (isAndroid && !inSamsungInternet) {
+    btn.href = 'intent://' + APK.replace(/^https:\/\//, '') +
+      '#Intent;scheme=https;package=' + SAMSUNG_INTERNET +
+      ';S.browser_fallback_url=' + encodeURIComponent(APK) + ';end';
+  } else {
+    btn.href = APK;
+    document.getElementById('samsung-hint').hidden = true;
+  }
+  if (!isAndroid) document.getElementById('not-android').hidden = false;
+
+  if (document.getElementById('build').textContent.indexOf('__') === 0) {
+    document.getElementById('build').textContent = '';
+  }
+
+  document.getElementById('copy').addEventListener('click', function () {
+    var out = document.getElementById('copied');
+    var done = function () { out.textContent = 'Copied.'; };
+    var fail = function () { out.textContent = location.href; };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(location.href).then(done, fail);
+    } else {
+      fail();
+    }
+  });
+})();
+</script>
+</body>
+</html>
