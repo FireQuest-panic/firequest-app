@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex"><meta name="theme-color" content="#0F0F10">
+<title>FireQuest database update</title>
+<style>
+body { margin: 0; background: #0F0F10; color: #F4F1EA; font: 17px/1.5 system-ui, sans-serif; }
+main { max-width: 460px; margin: 0 auto; padding: 24px 16px 40px; }
+h1 { font-size: 24px; margin: 0 0 8px; }
+p, li { color: #A8A39A; }
+button, a.btn { display: flex; align-items: center; justify-content: center; width: 100%; min-height: 58px; margin: 16px 0 0; border: 0; border-radius: 16px; background: #D42F35; color: #fff; font: 700 19px system-ui, sans-serif; text-decoration: none; }
+a.btn { background: #B99B52; color: #111214; }
+#done { color: #7EE2A8; font-weight: 700; text-align: center; min-height: 24px; margin-top: 10px; }
+textarea { width: 100%; height: 120px; margin-top: 16px; background: #1A1A1C; color: #A8A39A; border: 1px solid #2E2C28; border-radius: 12px; font: 11px monospace; box-sizing: border-box; }
+</style></head><body><main>
+<h1>Database update for version 15</h1>
+<p>Family plan price R49 a month, and card-expiry reminders.</p>
+<button type="button" id="copy">1. Copy the update</button>
+<div id="done" aria-live="polite"></div>
+<a class="btn" href="https://supabase.com/dashboard/project/pwlgbvzslpidlidhjzeo/sql/new">2. Open the Supabase SQL editor</a>
+<p>In Supabase: tap in the empty editor, press and hold, tap <b>Paste</b>, then tap <b>Run</b>. If Supabase shows a warning, tap <b>Run this query</b>. You should see <b>Success</b>.</p>
+<textarea id="sql" readonly aria-label="Database update">update public.app_settings set plan_price = 49.00 where id = 1; alter table public.app_settings alter column plan_price set default 49.00; alter table public.subscriptions add column if not exists card_expiry date; alter table public.subscriptions add column if not exists card_expiry_set_at timestamptz; create or replace function public.my_card() returns json language plpgsql stable security definer set search_path = public as $$ declare v_sub public.subscriptions; begin if auth.uid() is null then raise exception 'Not signed in'; end if; select * into v_sub from public.subscriptions where owner_id = auth.uid(); if not found then return json_build_object('is_owner', false); end if; return json_build_object( 'is_owner', true, 'has_debit_order', v_sub.payfast_token is not null, 'card_expiry', v_sub.card_expiry, 'ask', v_sub.payfast_token is not null and (v_sub.card_expiry is null or v_sub.card_expiry &lt; date_trunc('month', current_date)::date or exists (select 1 from private.payfast_checkouts c where c.subscription_id = v_sub.id and c.completed_at is not null and c.completed_at &gt; coalesce(v_sub.card_expiry_set_at, '-infinity'::timestamptz)))); end $$; create or replace function public.set_card_expiry(p_month int, p_year int) returns json language plpgsql security definer set search_path = public as $$ declare v_year int := case when p_year between 0 and 99 then 2000 + p_year else p_year end; v_date date; begin if auth.uid() is null then raise exception 'Not signed in'; end if; if not exists (select 1 from public.subscriptions where owner_id = auth.uid()) then raise exception 'Only the plan holder pays, so only they can enter the card expiry.'; end if; if p_month is null and p_year is null then v_date := null; else if p_month is null or p_month not between 1 and 12 then raise exception 'The month must be between 01 and 12.'; end if; v_date := make_date(v_year, p_month, 1); if v_date &lt; date_trunc('month', current_date)::date then raise exception 'That card has already expired. Use a card that is still valid.'; end if; if v_date &gt; (current_date + interval '15 years')::date then raise exception 'Check the year – it is too far in the future.'; end if; end if; update public.subscriptions set card_expiry = v_date, card_expiry_set_at = now() where owner_id = auth.uid(); return public.my_card(); end $$; revoke execute on function public.my_card(), public.set_card_expiry(int, int) from public, anon; grant execute on function public.my_card(), public.set_card_expiry(int, int) to authenticated;</textarea>
+</main>
+<script>
+document.getElementById('copy').onclick = function () {
+  var t = document.getElementById('sql');
+  function ok() { document.getElementById('done').textContent = 'Copied ✓ Now tap 2.'; }
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(t.value).then(ok, function () { t.focus(); t.select(); document.execCommand('copy'); ok(); });
+  } else { t.focus(); t.select(); document.execCommand('copy'); ok(); }
+};
+</script></body></html>
